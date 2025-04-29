@@ -9,6 +9,7 @@ ffmpeg-python>=0.2.0
 
 # UI dependencies
 pyqt6>=6.2.0
+pynput>=1.7.1
 
 # Utility dependencies
 click>=8.0.0

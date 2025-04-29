@@ -71,9 +71,9 @@ class SpeechRecognizer:
             A dictionary containing the transcription results.
         """
         options = {}
-        if self.language is not None:
+        if self.language:
             options["language"] = self.language
-            
+        print(f"[DEBUG] Whisper options: {options}")
         result = self.model.transcribe(audio_path, **options)
         return result
     

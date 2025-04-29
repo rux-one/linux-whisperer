@@ -24,6 +24,7 @@
         python312Packages.numpy
         python312Packages.pyaudio
         python312Packages.pyqt6
+        python312Packages.pynput
         virtualenv
         uv
 

@@ -158,6 +158,11 @@ def main():
             sys.exit(1)
         app = QApplication(sys.argv)
         tray = SystemTrayApp(app)
+        # Always show the main transcription window on startup
+        window = TranscriptionWindow()
+        window.show()
+        # Optionally, connect tray to window for future integration
+        tray.transcription_window = window
         sys.exit(app.exec())
     else:
         # CLI mode (default)
