@@ -42,8 +42,9 @@ class TranscriptionWindow(QMainWindow):
     results and controlling the transcription process.
     """
     
-    # Signal emitted when the window is closed
+    # Signals
     closed = pyqtSignal()
+    transcription_updated = pyqtSignal(str)  # Signal for transcription updates
     
     def __init__(self):
         """
@@ -58,6 +59,9 @@ class TranscriptionWindow(QMainWindow):
         self._audio_thread = None
         self._audio_stream = None
         self._audio_thread_stop = threading.Event()
+        
+        # Connect the transcription_updated signal to the update_transcription slot
+        self.transcription_updated.connect(self.update_transcription)
         # Language selection
         self.language_combo = QComboBox()
         for code, label in LANGUAGES:
@@ -460,12 +464,13 @@ class TranscriptionWindow(QMainWindow):
                                 result = self._transcriber.recognizer.transcribe_audio(segment, 16000)
                                 print(f"[DEBUG] Transcription result: text={result.get('text')}, full={result}")
                                 text = result["text"].strip()
-                                # Thread-safe approach: use _invoke_in_main_thread
+                                # Thread-safe approach: use PyQt signals
                                 print(f"[DEBUG] Got transcription text: {text}")
                                 # Create a copy of the text to avoid reference issues
                                 final_text = str(text)
-                                # Use a proper thread-safe approach
-                                self._invoke_in_main_thread(lambda: self.update_transcription(final_text))
+                                # Emit signal to update UI in the main thread
+                                print(f"[DEBUG] Emitting transcription_updated signal with text: {final_text}")
+                                self.transcription_updated.emit(final_text)
                             except Exception as e:
                                 print(f"[Transcription] Error: {e}")
                         audio_buffer = []
