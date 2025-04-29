@@ -362,6 +362,9 @@ class TranscriptionWindow(QMainWindow):
                 self._audio_stream = None
             # Stop transcriber
             self._transcriber.stop()
+            # Reinitialize transcriber for next session
+            self._transcriber = StreamingTranscriber()
+            self._transcriber.on_transcription = self._on_transcription_result
             self.status_label.setText("Transcription stopped.")
 
     def _populate_audio_devices(self):
