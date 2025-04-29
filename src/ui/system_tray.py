@@ -13,7 +13,7 @@ import sys
 from typing import Callable, Dict, Optional
 
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtGui import QAction, QIcon, QActionGroup
 from PyQt6.QtWidgets import (
     QApplication, QMenu, QSystemTrayIcon, QWidget,
     QVBoxLayout, QHBoxLayout, QLabel, QPushButton,

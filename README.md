@@ -69,6 +69,15 @@ python src/main.py
 python -m pytest
 ```
 
+## NixOS
+
+Under `/shells` there's `flake.nix` file with all environment prepared. (might need to adjust the base dir)
+
+```bash
+cd /shells
+nix develop
+```
+
 ## License
 
 MIT

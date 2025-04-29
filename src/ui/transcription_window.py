@@ -11,11 +11,11 @@ import os
 from typing import List, Optional
 
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtGui import QIcon, QFont, QTextCursor
+from PyQt6.QtGui import QIcon, QFont, QTextCursor, QAction
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QPushButton, QTextEdit, QToolBar, QStatusBar,
-    QComboBox, QCheckBox, QSlider, QAction
+    QComboBox, QCheckBox, QSlider, QFileDialog
 )
 
 

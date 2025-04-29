@@ -133,6 +133,11 @@ def parse_args():
         help="The device to use for inference (e.g., 'cuda', 'cpu')"
     )
     
+    parser.add_argument(
+        "--gui",
+        action="store_true",
+        help="Launch the Qt GUI instead of running in CLI mode"
+    )
     return parser.parse_args()
 
 
@@ -141,14 +146,27 @@ def main():
     Main entry point.
     """
     args = parse_args()
-    
-    app = LinuxWhisperer(
-        model_size=args.model,
-        language=args.language,
-        device=args.device
-    )
-    
-    app.start()
+
+    if args.gui:
+        # Launch Qt GUI mode
+        try:
+            from PyQt6.QtWidgets import QApplication
+            from ui.system_tray import SystemTrayApp
+            from ui.transcription_window import TranscriptionWindow
+        except ImportError as e:
+            print("PyQt6 is not installed. Please install it to use the GUI. e: ", e)
+            sys.exit(1)
+        app = QApplication(sys.argv)
+        tray = SystemTrayApp(app)
+        sys.exit(app.exec())
+    else:
+        # CLI mode (default)
+        app = LinuxWhisperer(
+            model_size=args.model,
+            language=args.language,
+            device=args.device
+        )
+        app.start()
 
 
 if __name__ == "__main__":
